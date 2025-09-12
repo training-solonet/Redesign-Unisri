@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universitas Slamet Riyadi Surakarta</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="https://via.placeholder.com/60x60/003366/FFFFFF?text=UNISRI" alt="Logo UNISRI" class="logo">
+                    <div class="logo-text">
+                        <h1>Universitas Slamet Riyadi</h1>
+                        <p>Surakarta</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="quick-links">
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Portal Mahasiswa</span>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Portal Dosen</span>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-users"></i>
+                            <span>Alumni</span>
+                        </a>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">Beranda</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Profil <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#">Sejarah</a>
+                        <a href="#">Visi & Misi</a>
+                        <a href="#">Struktur Organisasi</a>
+                        <a href="#">Lokasi</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Fakultas <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#">Fakultas Hukum</a>
+                        <a href="#">Fakultas Ekonomi dan Bisnis</a>
+                        <a href="#">Fakultas Ilmu Sosial dan Ilmu Politik</a>
+                        <a href="#">Fakultas Keguruan dan Ilmu Pendidikan</a>
+                        <a href="#">Fakultas Pertanian</a>
+                        <a href="#">Fakultas Teknologi Pangan</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Akademik <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#">Program Sarjana</a>
+                        <a href="#">Program Pascasarjana</a>
+                        <a href="#">Kalender Akademik</a>
+                        <a href="#">Portal Akademik</a>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link">Penelitian</a></li>
+                <li><a href="#" class="nav-link">Pengabdian</a></li>
+                <li><a href="#" class="nav-link">Kemahasiswaan</a></li>
+                <li><a href="#" class="nav-link">Berita</a></li>
+                <li><a href="#" class="nav-link">Kontak</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <img src="https://via.placeholder.com/1920x600/003366/FFFFFF?text=Kampus+UNISRI" alt="Kampus UNISRI">
+                <div class="hero-content">
+                    <div class="container">
+                        <h2>Selamat Datang di Universitas Slamet Riyadi</h2>
+                        <p>Membangun generasi unggul dengan pendidikan berkualitas dan berkarakter</p>
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary">Daftar Sekarang</a>
+                            <a href="#" class="btn btn-outline">Pelajari Lebih Lanjut</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="https://via.placeholder.com/1920x600/2E8B57/FFFFFF?text=Fasilitas+Modern" alt="Fasilitas Modern">
+                <div class="hero-content">
+                    <div class="container">
+                        <h2>Fasilitas Modern dan Lengkap</h2>
+                        <p>Didukung dengan fasilitas pembelajaran terdepan untuk mendukung prestasi mahasiswa</p>
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary">Lihat Fasilitas</a>
+                            <a href="#" class="btn btn-outline">Virtual Tour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-nav">
+            <button class="hero-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="hero-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="hero-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Penerimaan Mahasiswa Baru</h3>
+                        <p>Daftar sekarang untuk tahun akademik 2025/2026</p>
+                        <a href="#" class="info-link">Daftar <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Portal Akademik</h3>
+                        <p>Akses informasi akademik dan layanan mahasiswa</p>
+                        <a href="#" class="info-link">Masuk <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Kalender Akademik</h3>
+                        <p>Jadwal kegiatan dan agenda akademik terbaru</p>
+                        <a href="#" class="info-link">Lihat <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Career Center</h3>
+                        <p>Layanan karir dan pengembangan profesional</p>
+                        <a href="#" class="info-link">Kunjungi <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Unggulan -->
+    <section class="programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Program Unggulan</h2>
+                <p>Berbagai program akademik berkualitas untuk masa depan yang cerah</p>
+            </div>
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Fakultas Hukum</h3>
+                    <p>Program studi hukum dengan kurikulum terkini dan dosen berpengalaman</p>
+                    <a href="#" class="program-link">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Fakultas Ekonomi dan Bisnis</h3>
+                    <p>Mempersiapkan lulusan yang kompeten di bidang ekonomi dan bisnis</p>
+                    <a href="#" class="program-link">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Fakultas Ilmu Sosial dan Ilmu Politik</h3>
+                    <p>Mengembangkan pemahaman mendalam tentang dinamika sosial dan politik</p>
+                    <a href="#" class="program-link">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Fakultas Keguruan dan Ilmu Pendidikan</h3>
+                    <p>Mencetak pendidik profesional dan berkualitas</p>
+                    <a href="#" class="program-link">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Fakultas Pertanian</h3>
+                    <p>Inovasi teknologi pertanian untuk ketahanan pangan</p>
+                    <a href="#" class="program-link">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Fakultas Teknologi Pangan</h3>
+                    <p>Mengembangkan teknologi pengolahan pangan yang inovatif</p>
+                    <a href="#" class="program-link">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita & Pengumuman -->
+    <section class="news-section">
+        <div class="container">
+            <div class="news-header">
+                <div class="section-header">
+                    <h2>Berita & Pengumuman</h2>
+                    <p>Informasi terkini seputar kegiatan dan prestasi UNISRI</p>
+                </div>
+                <a href="#" class="view-all-btn">Lihat Semua Berita</a>
+            </div>
+            <div class="news-grid">
+                <div class="news-featured">
+                    <article class="news-card featured">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/600x300/4A90E2/FFFFFF?text=Berita+Utama" alt="Berita Utama">
+                            <div class="news-category">Berita Utama</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">12 September 2025</span>
+                                <span class="news-author">Admin UNISRI</span>
+                            </div>
+                            <h3>Unisri dan UMS Sabah Tingkatkan Literasi Keuangan Pengrajin Batik Tulis di Klaten</h3>
+                            <p>Program kolaborasi untuk meningkatkan pemahaman literasi keuangan bagi para pengrajin batik tulis di wilayah Klaten...</p>
+                            <a href="#" class="read-more">Baca Selengkapnya</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="news-list">
+                    <article class="news-card">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/300x200/7B68EE/FFFFFF?text=KKN" alt="KKN">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">10 September 2025</span>
+                            </div>
+                            <h4>1.461 Mahasiswa KKN di Klaten dan Karanganyar Ditarik</h4>
+                            <p>Penarikan mahasiswa KKN setelah menyelesaikan program pengabdian masyarakat...</p>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/300x200/32CD32/FFFFFF?text=EXPO" alt="Expo">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">8 September 2025</span>
+                            </div>
+                            <h4>KKN Unisri Usung Semangat Cintai Produk Desa Lewat Expo UMKM</h4>
+                            <p>Expo UMKM dan budaya di Jatinom sebagai wujud dukungan terhadap produk lokal...</p>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/300x200/FF6347/FFFFFF?text=Seminar" alt="Seminar">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-date">5 September 2025</span>
+                            </div>
+                            <h4>Unisri Gelar Seminar UNIPOLSS Bahas Kebijakan Presiden Prabowo</h4>
+                            <p>Seminar membahas berbagai kebijakan baru pemerintahan Presiden Prabowo...</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Fakultas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Program Studi</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">Mahasiswa Aktif</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Dosen & Staff</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fasilitas -->
+    <section class="facilities">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fasilitas & Layanan</h2>
+                <p>Fasilitas lengkap untuk mendukung kegiatan akademik dan non-akademik</p>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3>LPM</h3>
+                    <p>Lembaga Penjaminan Mutu untuk memastikan kualitas pendidikan</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>LPPM</h3>
+                    <p>Lembaga Penelitian dan Pengabdian kepada Masyarakat</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Career Center</h3>
+                    <p>Pusat layanan karir dan pengembangan profesional mahasiswa</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Unisri Press</h3>
+                    <p>Penerbit resmi untuk publikasi karya ilmiah dan buku</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Pusat Bahasa</h3>
+                    <p>Pusat pembelajaran dan pengembangan kemampuan bahasa</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Tracer Study</h3>
+                    <p>Pelacakan alumni untuk evaluasi dan pengembangan program</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://via.placeholder.com/60x60/FFFFFF/003366?text=UNISRI" alt="Logo UNISRI">
+                        <div class="footer-logo-text">
+                            <h3>Universitas Slamet Riyadi</h3>
+                            <p>Surakarta</p>
+                        </div>
+                    </div>
+                    <p>Membangun generasi unggul dengan pendidikan berkualitas dan berkarakter untuk masa depan Indonesia yang lebih baik.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Fakultas</h4>
+                    <ul>
+                        <li><a href="#">Fakultas Hukum</a></li>
+                        <li><a href="#">Fakultas Ekonomi dan Bisnis</a></li>
+                        <li><a href="#">Fakultas Ilmu Sosial dan Ilmu Politik</a></li>
+                        <li><a href="#">Fakultas Keguruan dan Ilmu Pendidikan</a></li>
+                        <li><a href="#">Fakultas Pertanian</a></li>
+                        <li><a href="#">Fakultas Teknologi Pangan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#">Portal Akademik</a></li>
+                        <li><a href="#">Perpustakaan Digital</a></li>
+                        <li><a href="#">E-Learning</a></li>
+                        <li><a href="#">Career Center</a></li>
+                        <li><a href="#">Tracer Study</a></li>
+                        <li><a href="#">LPPM</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontak</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Jl. Sumpah Pemuda No. 18, Surakarta, Jawa Tengah 57136</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(0271) 647085</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@unisri.ac.id</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <span>www.unisri.ac.id</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Universitas Slamet Riyadi Surakarta. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
