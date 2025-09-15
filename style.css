@@ -79,8 +79,8 @@ p {
 .btn-primary:hover {
     background: var(--gradient-secondary);
     border-color: var(--accent-color);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 20px -6px rgba(245, 158, 11, 0.45);
 }
 
 .btn-outline {
@@ -92,8 +92,65 @@ p {
 .btn-outline:hover {
     background: var(--gradient-primary);
     color: var(--white);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 20px -6px rgba(59, 130, 246, 0.45);
+}
+
+/* Extra polish for hero buttons */
+.hero .btn {
+    position: relative;
+    overflow: hidden;
+    will-change: transform, box-shadow, background, color;
+}
+
+.hero .btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-20deg);
+    transition: var(--transition);
+}
+
+.hero .btn:hover::after {
+    left: 130%;
+}
+
+/* Base contrast for hero overlay */
+.hero .btn-outline {
+    background: transparent;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* Make hero slide buttons very visible on hover */
+.hero .btn-primary:hover {
+    background: #ffffff;
+    color: var(--primary-color);
+    border-color: #ffffff;
+    box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255,255,255,0.5);
+}
+
+.hero .btn-outline:hover {
+    background: #ffffff;
+    color: var(--primary-color);
+    border-color: #ffffff;
+    box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255,255,255,0.55);
+}
+
+/* Stronger, specific interaction for hero buttons to ensure visibility */
+.hero .hero-buttons .btn:hover,
+.hero .hero-buttons .btn:focus-visible {
+    transform: translateY(-6px) scale(1.06);
+    box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255,255,255,0.55);
+}
+
+.hero .hero-buttons .btn:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.45);
 }
 
 /* Header */
@@ -253,9 +310,9 @@ p {
 }
 
 .dropdown-menu a:hover {
-    background-color: var(--light-gray);
     color: var(--primary-color);
-    transform: translateX(5px);
+    text-decoration: underline;
+    background-color: transparent;
 }
 
 .mobile-menu-toggle {
@@ -313,7 +370,7 @@ p {
     height: 100%;
     display: flex;
     align-items: center;
-    background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.5));
+    /* background: linear-gradient(rgba(215, 214, 221, 0.196), rgba(231, 243, 255, 0.453)); */
 }
 
 .hero-content h2 {
@@ -384,6 +441,108 @@ p {
 
 .dot.active {
     background-color: var(--white);
+}
+
+/* Header enhancements: subtle silhouette pattern and progress bar */
+.header {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: saturate(110%) blur(2px);
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.25"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></linearGradient></defs><path d="M0,80 C240,140 480,20 720,80 C960,140 1200,40 1440,80 L1440,0 L0,0 Z" fill="url(%23g)"/></svg>') no-repeat top center;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--gradient-secondary);
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+    transition: width 0.15s ease;
+}
+
+/* Language switcher */
+.language-switcher {
+    position: relative;
+}
+
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: var(--dark-gray);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-toggle:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+.lang-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    min-width: 180px;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-hover);
+    list-style: none;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: var(--transition);
+    z-index: 1100;
+}
+
+.language-switcher.open .lang-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-menu li {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    color: var(--dark-gray);
+}
+
+.lang-menu li[aria-selected="true"] {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.lang-menu li:hover {
+    background: var(--light-gray);
+}
+
+/* Dropdown menu polish */
+.dropdown-menu {
+    border: 1px solid #eef2f7;
+    padding: 0.25rem;
+}
+
+.dropdown-menu a {
+    border-radius: 8px;
 }
 
 /* Quick Info */

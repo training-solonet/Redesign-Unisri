@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initSearchFunctionality();
     initSmoothScrolling();
+    initLanguageSwitcher();
+    initScrollProgressBar();
 });
 
 // Hero Slider Functionality
@@ -44,11 +46,15 @@ function initHeroSlider() {
 
     // Auto slide
     function startAutoSlide() {
+        if (slideInterval) return; // guard against multiple intervals
         slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
     }
 
     function stopAutoSlide() {
-        clearInterval(slideInterval);
+        if (slideInterval) {
+            clearInterval(slideInterval);
+            slideInterval = null;
+        }
     }
 
     // Event listeners
@@ -86,6 +92,81 @@ function initHeroSlider() {
 
     // Start auto slide
     startAutoSlide();
+}
+
+// Language Switcher
+function initLanguageSwitcher() {
+    const switcher = document.querySelector('.language-switcher');
+    const toggleBtn = document.querySelector('.lang-toggle');
+    const menu = document.querySelector('.lang-menu');
+    const currentSpan = document.querySelector('.current-lang');
+    const htmlEl = document.documentElement;
+    const searchInput = document.querySelector('.search-box input');
+
+    if (!switcher || !toggleBtn || !menu || !currentSpan) return;
+
+    // Apply saved language
+    const saved = localStorage.getItem('site_lang') || htmlEl.lang || 'id';
+    applyLanguage(saved);
+
+    // Toggle menu
+    toggleBtn.addEventListener('click', () => {
+        const isOpen = switcher.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Select language
+    menu.querySelectorAll('li[role="option"]').forEach(item => {
+        item.addEventListener('click', () => {
+            const lang = item.getAttribute('data-lang');
+            applyLanguage(lang);
+            // close
+            switcher.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+        if (!switcher.contains(e.target)) {
+            switcher.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    function applyLanguage(lang) {
+        htmlEl.setAttribute('lang', lang);
+        localStorage.setItem('site_lang', lang);
+        currentSpan.textContent = lang.toUpperCase();
+
+        // Mark selection in menu
+        menu.querySelectorAll('li[role="option"]').forEach(li => {
+            const isSelected = li.getAttribute('data-lang') === lang;
+            li.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+        });
+
+        // Minimal copy changes for demo
+        if (searchInput) {
+            searchInput.setAttribute('placeholder', lang === 'en' ? 'Search...' : 'Cari...');
+        }
+    }
+}
+
+// Scroll Progress Bar
+function initScrollProgressBar() {
+    const progressBar = document.querySelector('.progress-bar');
+    if (!progressBar) return;
+
+    const update = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = `${percent}%`;
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
 }
 
 // Mobile Menu Functionality
