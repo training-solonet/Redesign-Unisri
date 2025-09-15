@@ -58,7 +58,7 @@
 
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
+        <div class="container nav-container">
             <ul class="nav-menu">
                 <li><a href="#" class="nav-link active">Beranda</a></li>
                 <li class="dropdown">
@@ -67,7 +67,6 @@
                         <a href="#">Sejarah</a>
                         <a href="#">Visi & Misi</a>
                         <a href="#">Struktur Organisasi</a>
-                    
                     </div>
                 </li>
                 <li class="dropdown">
@@ -95,6 +94,59 @@
                 <li><a href="#" class="nav-link">Kemahasiswaan</a></li>
                 <li><a href="#" class="nav-link">Berita</a></li>
                 <li><a href="#" class="nav-link">Kontak</a></li>
+                
+                <!-- Mobile menu structure (hidden on desktop) -->
+                <div class="mobile-menu-header">
+                    <div class="mobile-logo">
+                        <img src="assets/unisri logo.png" alt="UNISRI" class="mobile-logo-img">
+                        <span class="mobile-logo-text">UNISRI</span>
+                    </div>
+                    <button class="mobile-close" aria-label="Tutup menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="mobile-menu-content">
+                    <li><a href="#" class="nav-link active mobile-only"><i class="fas fa-home"></i>Beranda</a></li>
+                    <li class="dropdown mobile-only">
+                        <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-university"></i>Profil <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#"><i class="fas fa-history"></i>Sejarah</a>
+                            <a href="#"><i class="fas fa-bullseye"></i>Visi & Misi</a>
+                            <a href="#"><i class="fas fa-sitemap"></i>Struktur Organisasi</a>
+                        </div>
+                    </li>
+                    <li class="dropdown mobile-only">
+                        <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-graduation-cap"></i>Fakultas <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#"><i class="fas fa-balance-scale"></i>Fakultas Hukum</a>
+                            <a href="#"><i class="fas fa-chart-line"></i>Fakultas Ekonomi dan Bisnis</a>
+                            <a href="#"><i class="fas fa-users"></i>Fakultas Ilmu Sosial dan Ilmu Politik</a>
+                            <a href="#"><i class="fas fa-chalkboard-teacher"></i>Fakultas Keguruan dan Ilmu Pendidikan</a>
+                            <a href="#"><i class="fas fa-seedling"></i>Fakultas Pertanian</a>
+                            <a href="#"><i class="fas fa-flask"></i>Fakultas Teknologi Pangan</a>
+                        </div>
+                    </li>
+                    <li class="dropdown mobile-only">
+                        <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-book-open"></i>Akademik <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#"><i class="fas fa-user-graduate"></i>Program Sarjana</a>
+                            <a href="#"><i class="fas fa-user-tie"></i>Program Pascasarjana</a>
+                            <a href="#"><i class="fas fa-calendar-alt"></i>Kalender Akademik</a>
+                            <a href="#"><i class="fas fa-laptop"></i>Portal Akademik</a>
+                        </div>
+                    </li>
+                    <li class="mobile-only"><a href="#" class="nav-link"><i class="fas fa-microscope"></i>Penelitian</a></li>
+                    <li class="mobile-only"><a href="#" class="nav-link"><i class="fas fa-hands-helping"></i>Pengabdian</a></li>
+                    <li class="mobile-only"><a href="#" class="nav-link"><i class="fas fa-user-friends"></i>Kemahasiswaan</a></li>
+                    <li class="mobile-only"><a href="#" class="nav-link"><i class="fas fa-newspaper"></i>Berita</a></li>
+                    <li class="mobile-only"><a href="#" class="nav-link"><i class="fas fa-phone"></i>Kontak</a></li>
+                </div>
+                <div class="mobile-menu-footer">
+                    <div class="mobile-contact">
+                        <p><i class="fas fa-envelope"></i> info@unisri.ac.id</p>
+                        <p><i class="fas fa-phone"></i> (0271) 647085</p>
+                    </div>
+                </div>
             </ul>
             <div class="mobile-menu-toggle">
                 <span></span>
@@ -102,6 +154,7 @@
                 <span></span>
             </div>
         </div>
+        <div class="nav-backdrop" aria-hidden="true"></div>
     </nav>
 
     <!-- Hero Section -->
