@@ -30,10 +30,6 @@
                             <i class="fas fa-chalkboard-teacher"></i>
                             <span>Portal Dosen</span>
                         </a>
-                        <!-- <a href="#" class="quick-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Web Mail</span>
-                        </a> -->
                     </div>
                     <div class="language-switcher" aria-label="Pengaturan Bahasa">
                         <button class="lang-toggle" aria-haspopup="listbox" aria-expanded="false">
@@ -46,71 +42,68 @@
                             <li role="option" data-lang="en">English (EN)</li>
                         </ul>
                     </div>
-                    <div class="search-box">
-                        <input type="text" placeholder="Cari...">
-                        <button><i class="fas fa-search"></i></button>
+                    <button class="search-toggle" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="mobile-menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Search Box (Hidden by default) -->
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <input type="text" placeholder="Cari informasi, berita, program studi...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </div>
         </div>
         <div class="progress-bar" aria-hidden="true"></div>
     </header>
 
-    <!-- Navigation -->
+    <!-- Desktop Navigation -->
     <nav class="navbar">
-        <div class="container nav-container">
+        <div class="container">
             <ul class="nav-menu">
-                <div class="mobile-menu-header">
-                    <img src="assets/unisri logo.png" alt="Logo UNISRI" class="logo">
-                    <div class="logo-text">
-                        <h3>Universitas Slamet Riyadi</h3>
-                        <p>Surakarta</p>
+                <li><a href="#" class="nav-link active">Beranda</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Profil <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#">Sejarah</a>
+                        <a href="#">Visi & Misi</a>
+                        <a href="#">Struktur Organisasi</a>
                     </div>
-                </div>
-                <div class="mobile-menu-items">
-                    <li><a href="#" class="nav-link active">Beranda</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link">Profil <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">Sejarah</a>
-                            <a href="#">Visi & Misi</a>
-                            <a href="#">Struktur Organisasi</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link">Fakultas <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">Fakultas Hukum</a>
-                            <a href="#">Fakultas Ekonomi dan Bisnis</a>
-                            <a href="#">Fakultas Ilmu Sosial dan Ilmu Politik</a>
-                            <a href="#">Fakultas Keguruan dan Ilmu Pendidikan</a>
-                            <a href="#">Fakultas Pertanian</a>
-                            <a href="#">Fakultas Teknologi Pangan</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link">Akademik <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">Program Sarjana</a>
-                            <a href="#">Program Pascasarjana</a>
-                            <a href="#">Kalender Akademik</a>
-                            <a href="#">Portal Akademik</a>
-                        </div>
-                    </li>
-                    <li><a href="#" class="nav-link">Penelitian</a></li>
-                    <li><a href="#" class="nav-link">Pengabdian</a></li>
-                    <li><a href="#" class="nav-link">Kemahasiswaan</a></li>
-                    <li><a href="#" class="nav-link">Berita</a></li>
-                    <li><a href="#" class="nav-link">Kontak</a></li>
-                </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Fakultas <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#">Fakultas Hukum</a>
+                        <a href="#">Fakultas Ekonomi dan Bisnis</a>
+                        <a href="#">Fakultas Ilmu Sosial dan Ilmu Politik</a>
+                        <a href="#">Fakultas Keguruan dan Ilmu Pendidikan</a>
+                        <a href="#">Fakultas Pertanian</a>
+                        <a href="#">Fakultas Teknologi Pangan</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Akademik <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#">Program Sarjana</a>
+                        <a href="#">Program Pascasarjana</a>
+                        <a href="#">Kalender Akademik</a>
+                        <a href="#">Portal Akademik</a>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link">Penelitian</a></li>
+                <li><a href="#" class="nav-link">Pengabdian</a></li>
+                <li><a href="#" class="nav-link">Kemahasiswaan</a></li>
+                <li><a href="#" class="nav-link">Berita</a></li>
+                <li><a href="#" class="nav-link">Kontak</a></li>
             </ul>
-            <div class="mobile-menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
-        <div class="nav-backdrop" aria-hidden="true"></div>
     </nav>
 
     <!-- Hero Section -->

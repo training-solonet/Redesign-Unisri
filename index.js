@@ -229,25 +229,56 @@ function initScrollProgressBar() {
     window.addEventListener('resize', update);
 }
 
-// Mobile Menu Functionality
+// Mobile Menu Functionality - Updated for merged header
 function initMobileMenu() {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const navbar = document.querySelector('.navbar');
+
+    // Create mobile navigation if it doesn't exist
+    let mobileNav = document.querySelector('.mobile-nav');
+    if (!mobileNav) {
+        mobileNav = createMobileNavigation();
+        document.body.appendChild(mobileNav);
+    }
+
     
     // Create mobile menu overlay
     let overlay = document.querySelector('.mobile-menu-overlay');
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'mobile-menu-overlay';
+
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        `;
+
         document.body.appendChild(overlay);
     }
 
-    if (mobileToggle && navMenu) {
+    if (mobileToggle && mobileNav) {
         mobileToggle.addEventListener('click', function() {
-            const isActive = navMenu.classList.toggle('active');
+
+            const isActive = mobileNav.classList.toggle('active');
             mobileToggle.classList.toggle('active');
-            overlay.classList.toggle('active', isActive);
+            
+            // Show/hide overlay
+            if (isActive) {
+                overlay.style.opacity = '1';
+                overlay.style.visibility = 'visible';
+            } else {
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+            }
+
             
             // Prevent body scroll when menu is open
             document.body.style.overflow = isActive ? 'hidden' : '';
@@ -269,58 +300,53 @@ function initMobileMenu() {
         // Close mobile menu when clicking overlay
         overlay.addEventListener('click', function() {
             closeMobileMenu();
+
         });
         
-        // Handle dropdown menus in mobile
-        const dropdownLinks = document.querySelectorAll('.dropdown > .nav-link');
+        // Handle dropdown menus in mobile navigation
+        const dropdownLinks = document.querySelectorAll('.mobile-nav .dropdown > .nav-link');
         dropdownLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 1024) {
-                    e.preventDefault();
-                    const dropdown = this.parentElement;
-                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                    
-                    // Close other dropdowns first
-                    document.querySelectorAll('.dropdown.active').forEach(otherDropdown => {
-                        if (otherDropdown !== dropdown) {
-                            otherDropdown.classList.remove('active');
-                            const otherMenu = otherDropdown.querySelector('.dropdown-menu');
-                            if (otherMenu) {
-                                otherMenu.style.maxHeight = '0';
-                                otherMenu.style.opacity = '0';
-                            }
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                
+                // Close other dropdowns first
+                document.querySelectorAll('.mobile-nav .dropdown.active').forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                        const otherMenu = otherDropdown.querySelector('.dropdown-menu');
+                        if (otherMenu) {
+                            otherMenu.style.maxHeight = '0';
+                            otherMenu.style.opacity = '0';
                         }
-                    });
-                    
-                    // Toggle current dropdown
-                    const isActive = dropdown.classList.toggle('active');
-                    
-                    if (dropdownMenu) {
-                        if (isActive) {
-                            // Ensure it's measured correctly
-                            dropdownMenu.style.display = 'block';
-                            const targetHeight = dropdownMenu.scrollHeight;
-                            dropdownMenu.style.maxHeight = (targetHeight + 32) + 'px';
-                            dropdownMenu.style.opacity = '1';
-                            dropdownMenu.style.visibility = 'visible';
-                            dropdownMenu.style.transform = 'translateY(0)';
-                        } else {
-                            dropdownMenu.style.maxHeight = '0';
-                            dropdownMenu.style.opacity = '0';
-                            dropdownMenu.style.visibility = 'hidden';
-                            dropdownMenu.style.transform = 'translateY(0)';
-                            // Allow CSS to reset display after transition
-                            setTimeout(() => { dropdownMenu.style.display = 'block'; }, 300);
-                        }
+                    }
+                });
+                
+                // Toggle current dropdown
+                const isActive = dropdown.classList.toggle('active');
+                
+                if (dropdownMenu) {
+                    if (isActive) {
+                        const targetHeight = dropdownMenu.scrollHeight;
+                        dropdownMenu.style.maxHeight = (targetHeight + 32) + 'px';
+                        dropdownMenu.style.opacity = '1';
+                        dropdownMenu.style.visibility = 'visible';
+                    } else {
+                        dropdownMenu.style.maxHeight = '0';
+                        dropdownMenu.style.opacity = '0';
+                        dropdownMenu.style.visibility = 'hidden';
                     }
                 }
             });
         });
         
         function closeMobileMenu() {
-            navMenu.classList.remove('active');
+            mobileNav.classList.remove('active');
             mobileToggle.classList.remove('active');
-            overlay.classList.remove('active');
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            overlay.style.pointerEvents = 'none';
             document.body.style.overflow = '';
             
             const spans = mobileToggle.querySelectorAll('span');
@@ -329,8 +355,8 @@ function initMobileMenu() {
                 span.style.opacity = '1';
             });
             
-            // Close all dropdowns with smooth animation
-            document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+            // Close all dropdowns
+            document.querySelectorAll('.mobile-nav .dropdown.active').forEach(dropdown => {
                 const dropdownMenu = dropdown.querySelector('.dropdown-menu');
                 if (dropdownMenu) {
                     dropdownMenu.style.maxHeight = '0';
@@ -345,7 +371,7 @@ function initMobileMenu() {
         }
 
         // Close mobile menu when clicking on nav links (except dropdowns)
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.mobile-nav .nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 // Don't close if it's a dropdown toggle
@@ -356,12 +382,134 @@ function initMobileMenu() {
         });
         
         // Close mobile menu when clicking dropdown menu items
+        const dropdownItems = document.querySelectorAll('.mobile-nav .dropdown-menu a');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
+    }
+    
+    function createMobileNavigation() {
+        const nav = document.createElement('nav');
+        nav.className = 'mobile-nav';
+        nav.innerHTML = `
+            <div class="mobile-menu-header">
+                <img src="assets/unisri logo.png" alt="Logo UNISRI" class="logo">
+                <div class="logo-text">
+                    <h3>Universitas Slamet Riyadi</h3>
+                    <p>Surakarta</p>
+                </div>
+            </div>
+            <div class="mobile-menu-items">
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Profil <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#">Sejarah</a>
+                            <a href="#">Visi & Misi</a>
+                            <a href="#">Struktur Organisasi</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Fakultas <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#">Fakultas Hukum</a>
+                            <a href="#">Fakultas Ekonomi dan Bisnis</a>
+                            <a href="#">Fakultas Ilmu Sosial dan Ilmu Politik</a>
+                            <a href="#">Fakultas Keguruan dan Ilmu Pendidikan</a>
+                            <a href="#">Fakultas Pertanian</a>
+                            <a href="#">Fakultas Teknologi Pangan</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Akademik <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#">Program Sarjana</a>
+                            <a href="#">Program Pascasarjana</a>
+                            <a href="#">Kalender Akademik</a>
+                            <a href="#">Portal Akademik</a>
+                        </div>
+                    </li>
+                    <li><a href="#" class="nav-link">Penelitian</a></li>
+                    <li><a href="#" class="nav-link">Pengabdian</a></li>
+                    <li><a href="#" class="nav-link">Kemahasiswaan</a></li>
+                    <li><a href="#" class="nav-link">Berita</a></li>
+                    <li><a href="#" class="nav-link">Kontak</a></li>
+                </ul>
+            </div>
+        `;
+        return nav;
+    }
+}
+
+// Search Functionality - Updated for new search toggle
+function initSearchFunctionality() {
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchBox = document.querySelector('.search-box');
+    const searchInput = document.querySelector('.search-input-wrapper input');
+    const searchButton = document.querySelector('.search-input-wrapper button');
+
+    if (searchToggle && searchBox && searchInput) {
+        // Toggle search box
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = searchBox.classList.contains('active');
+            
+            if (isActive) {
+                searchBox.classList.remove('active');
+            } else {
+                searchBox.classList.add('active');
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 300);
+            }
+        });
+
+        // Close search on escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && searchBox.classList.contains('active')) {
+                searchBox.classList.remove('active');
+            }
+        });
+
+        // Close search when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchBox.contains(e.target) && !searchToggle.contains(e.target)) {
+                searchBox.classList.remove('active');
+            }
+        });
+
+        // Search functionality
+        if (searchButton) {
+            searchButton.addEventListener('click', performSearch);
+        }
+        
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+
+        });
+        
+        // Close mobile menu when clicking dropdown menu items
         const dropdownMenuLinks = document.querySelectorAll('.dropdown-menu a');
         dropdownMenuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 closeMobileMenu();
             });
         });
+    }
+
+    function performSearch() {
+        const query = searchInput.value.trim();
+        if (query) {
+            // In a real implementation, this would perform actual search
+            alert(`Mencari: "${query}"\n\nFitur pencarian akan diimplementasikan dengan backend.`);
+            searchInput.value = '';
+            searchBox.classList.remove('active');
+        }
     }
 }
 
@@ -434,32 +582,6 @@ function animateCounter(element) {
     }, 16);
 }
 
-// Search Functionality
-function initSearchFunctionality() {
-    const searchInput = document.querySelector('.search-box input');
-    const searchButton = document.querySelector('.search-box button');
-
-    if (searchInput && searchButton) {
-        // Search on button click
-        searchButton.addEventListener('click', performSearch);
-        
-        // Search on Enter key
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-    }
-
-    function performSearch() {
-        const query = searchInput.value.trim();
-        if (query) {
-            // In a real implementation, this would perform actual search
-            alert(`Mencari: "${query}"\n\nFitur pencarian akan diimplementasikan dengan backend.`);
-            searchInput.value = '';
-        }
-    }
-}
 
 // Smooth Scrolling for Anchor Links
 function initSmoothScrolling() {
@@ -532,32 +654,24 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdown.addEventListener('mouseenter', () => {
             const isDesktop = window.innerWidth > 1024;
             if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'hover') {
-                // In hover mode, ensure no leftover inline styles/classes from mobile
-                dropdown.classList.remove('active');
-                dropdown.classList.remove('open');
-                if (menu) {
-                    menu.removeAttribute('style');
-                    // Force reflow so CSS hover takes over immediately
-                    void menu.getBoundingClientRect();
-                }
-                // Rely on CSS for showing; nothing else to do
-                return;
-            }
-            if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'click' && dropdown.classList.contains('open')) {
-                // if already open via click, do nothing
-                return;
+
+                clearTimeout(timeout);
+                menu.style.display = 'block';
+                requestAnimationFrame(() => {
+                    menu.style.opacity = '1';
+                    menu.style.visibility = 'visible';
+                    menu.style.transform = 'translateY(0)';
+                });
             }
         });
         
         dropdown.addEventListener('mouseleave', () => {
             const isDesktop = window.innerWidth > 1024;
-            if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'hover') {
-                // CSS handles hide on hover-out; do nothing
-                return;
-            }
-            if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'click') {
+
+            if (isDesktop) {
                 // In click mode: biarkan tetap terbuka hingga klik di luar
-                if (dropdown.classList.contains('open')) return;
+                if (DESKTOP_DROPDOWN_TRIGGER === 'click' && dropdown.classList.contains('open')) return;
+
                 menu.style.opacity = '0';
                 menu.style.visibility = 'hidden';
                 menu.style.transform = 'translateY(-10px)';
