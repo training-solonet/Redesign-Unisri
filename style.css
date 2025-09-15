@@ -318,13 +318,17 @@ p {
 .nav-menu {
     display: flex;
     list-style: none;
+
     align-items: stretch;
     white-space: nowrap;
+
 }
 
 .nav-menu li {
     position: relative;
 }
+
+
 
 .nav-link {
     display: flex;
@@ -336,6 +340,7 @@ p {
     transition: var(--transition);
     font-weight: 500;
     text-align: left;
+
 }
 
 .nav-link:hover,
@@ -387,6 +392,7 @@ p {
     border: none;
     border-radius: 6px;
     transition: var(--transition);
+
 }
 
 .mobile-menu-toggle span {
@@ -1460,6 +1466,7 @@ p {
         font-weight: 500;                 /* consistent weight to avoid reflow */
         min-height: 44px;                 /* consistent tap target height */
         text-align: left;
+
     }
     
     .navbar .nav-menu > li.dropdown > .dropdown-menu a:hover {
@@ -1498,6 +1505,7 @@ p {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
     }
     
     .header-actions {
@@ -1536,6 +1544,7 @@ p {
     /* Show mobile menu toggle */
     .mobile-menu-toggle {
         display: flex;
+
     }
     
     /* Add shadow between header and hero section on mobile */
@@ -1576,6 +1585,7 @@ p {
         display: none;
     }
     
+
     .lang-toggle {
         padding: 0.4rem 0.6rem;
         font-size: 0.85rem;
@@ -1626,6 +1636,7 @@ p {
     /* Mobile Menu Header */
     .mobile-menu-header {
         display: flex;
+
         align-items: center;
         gap: 1rem;
         padding: 2rem 1.5rem 1.5rem;
