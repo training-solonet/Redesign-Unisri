@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initLanguageSwitcher();
     initScrollProgressBar();
+
+    // Ensure desktop/mobile nav states do not clash when resizing
+    setupResponsiveNavSync();
 });
 
 // Hero Slider Functionality
@@ -31,6 +34,63 @@ function initHeroSlider() {
         
         currentSlide = index;
     }
+
+// Sync nav state when crossing responsive breakpoints to avoid CSS/JS conflict
+function setupResponsiveNavSync() {
+    const BREAKPOINT = 1024;
+
+    const sync = () => {
+        const isDesktop = window.innerWidth > BREAKPOINT;
+        const navMenu = document.querySelector('.nav-menu');
+        const overlay = document.querySelector('.mobile-menu-overlay');
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+
+        // Reset dropdown states and inline styles that mobile JS may have set
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const menus = document.querySelectorAll('.dropdown-menu');
+
+        if (isDesktop) {
+            dropdowns.forEach(d => {
+                d.classList.remove('active');
+                d.classList.remove('open');
+            });
+            menus.forEach(m => {
+                // Remove all inline styles that could override desktop CSS
+                m.removeAttribute('style');
+                // Force reflow so CSS desktop takes effect immediately
+                void m.getBoundingClientRect();
+            });
+
+            // Close mobile panel if open
+            if (navMenu) navMenu.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            if (mobileToggle) {
+                mobileToggle.classList.remove('active');
+                mobileToggle.querySelectorAll('span').forEach(s => {
+                    s.style.transform = 'none';
+                    s.style.opacity = '1';
+                });
+            }
+        } else {
+            // Moving to mobile: ensure hover-opened desktop menus are closed
+            dropdowns.forEach(d => d.classList.remove('open'));
+            menus.forEach(m => {
+                // Clear visibility-related inline styles; keep others to default
+                m.style.opacity = '';
+                m.style.visibility = '';
+                m.style.transform = '';
+            });
+        }
+    };
+
+    // Initial sync and on resize/orientation changes (debounced)
+    const debouncedSync = debounce(sync, 150);
+    window.addEventListener('resize', debouncedSync);
+    window.addEventListener('orientationchange', debouncedSync);
+    // Run once on load
+    sync();
+}
 
     // Next slide
     function nextSlide() {
@@ -472,21 +532,32 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdown.addEventListener('mouseenter', () => {
             const isDesktop = window.innerWidth > 1024;
             if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'hover') {
-                clearTimeout(timeout);
-                menu.style.display = 'block';
-                requestAnimationFrame(() => {
-                    menu.style.opacity = '1';
-                    menu.style.visibility = 'visible';
-                    menu.style.transform = 'translateY(0)';
-                });
+                // In hover mode, ensure no leftover inline styles/classes from mobile
+                dropdown.classList.remove('active');
+                dropdown.classList.remove('open');
+                if (menu) {
+                    menu.removeAttribute('style');
+                    // Force reflow so CSS hover takes over immediately
+                    void menu.getBoundingClientRect();
+                }
+                // Rely on CSS for showing; nothing else to do
+                return;
+            }
+            if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'click' && dropdown.classList.contains('open')) {
+                // if already open via click, do nothing
+                return;
             }
         });
         
         dropdown.addEventListener('mouseleave', () => {
             const isDesktop = window.innerWidth > 1024;
-            if (isDesktop) {
+            if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'hover') {
+                // CSS handles hide on hover-out; do nothing
+                return;
+            }
+            if (isDesktop && DESKTOP_DROPDOWN_TRIGGER === 'click') {
                 // In click mode: biarkan tetap terbuka hingga klik di luar
-                if (DESKTOP_DROPDOWN_TRIGGER === 'click' && dropdown.classList.contains('open')) return;
+                if (dropdown.classList.contains('open')) return;
                 menu.style.opacity = '0';
                 menu.style.visibility = 'hidden';
                 menu.style.transform = 'translateY(-10px)';
