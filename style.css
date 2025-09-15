@@ -326,6 +326,8 @@ p {
     position: relative;
 }
 
+
+
 .nav-link {
     display: flex;
     align-items: center;
@@ -335,7 +337,9 @@ p {
     text-decoration: none;
     transition: var(--transition);
     font-weight: 500;
+
     text-align: left;
+
 }
 
 .nav-link:hover,
@@ -382,11 +386,13 @@ p {
     display: none;
     flex-direction: column;
     cursor: pointer;
+
     padding: 0.5rem;
     background: transparent;
     border: none;
     border-radius: 6px;
     transition: var(--transition);
+
 }
 
 .mobile-menu-toggle span {
@@ -1489,6 +1495,7 @@ p {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
     }
     
     .header-actions {
@@ -1527,6 +1534,7 @@ p {
     /* Show mobile menu toggle */
     .mobile-menu-toggle {
         display: flex;
+
     }
     
     /* Add shadow between header and hero section on mobile */
@@ -1559,8 +1567,10 @@ p {
     }
     
     .header-actions {
+
         gap: 0.75rem;
         flex-shrink: 0;
+
     }
     
     .quick-links {
@@ -1588,6 +1598,7 @@ p {
     
     /* Mobile Navigation Menu - UNPAD Style */
     .mobile-nav {
+
         position: fixed;
         top: 0;
         right: -100%;
@@ -1616,6 +1627,7 @@ p {
     /* Mobile Menu Header */
     .mobile-menu-header {
         display: flex;
+
         align-items: center;
         gap: 1rem;
         padding: 2rem 1.5rem 1.5rem;
