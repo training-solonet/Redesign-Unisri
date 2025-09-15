@@ -402,6 +402,9 @@ p {
     background-color: rgba(30, 58, 138, 0.1);
 }
 
+.mobile-nav{
+    display: none;
+}
 
 /* Hero Section */
 .hero {
@@ -1451,6 +1454,12 @@ p {
         white-space: normal;  /* allow wrapping */
         word-break: break-word;
         overflow-wrap: anywhere;
+        line-height: 1.4;
+        hyphens: auto;                    /* nicer hyphenation when wrapping */
+        width: 100%;                      /* ensure no intrinsic expansion */
+        font-weight: 500;                 /* consistent weight to avoid reflow */
+        min-height: 44px;                 /* consistent tap target height */
+        text-align: left;
     }
     
     .navbar .nav-menu > li.dropdown > .dropdown-menu a:hover {
@@ -1588,6 +1597,7 @@ p {
     
     /* Mobile Navigation Menu - UNPAD Style */
     .mobile-nav {
+        display: block;
         position: fixed;
         top: 0;
         right: -100%;
