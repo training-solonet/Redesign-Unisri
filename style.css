@@ -682,6 +682,16 @@ p {
     gap: 2rem;
 }
 
+/* Desktop: force 4 equal columns so 4 items align perfectly centered */
+@media (min-width: 1025px) {
+    .info-cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        justify-items: stretch;
+        align-items: stretch;
+    }
+    .info-card { height: 100%; }
+}
+
 .info-card {
     background-color: var(--white);
     padding: 2rem;
