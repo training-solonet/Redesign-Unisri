@@ -2046,6 +2046,13 @@ input:focus {
     outline-offset: 2px;
 }
 
+/* Remove blue focus outline specifically for navbar links */
+.navbar .nav-link:focus,
+.navbar .nav-link:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 /* Loading states */
 .loading {
     opacity: 0.6;
