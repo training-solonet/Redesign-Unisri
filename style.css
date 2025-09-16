@@ -150,6 +150,53 @@ p {
     box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255,255,255,0.55);
 }
 
+/* Command Palette (cmdk) */
+.cmdk-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 12000;
+}
+
+.cmdk-overlay.active { opacity: 1; visibility: visible; }
+
+.cmdk {
+    position: fixed;
+    left: 50%;
+    top: 12vh;
+    transform: translateX(-50%) scale(0.98);
+    width: min(720px, 92vw);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid #e5e7eb;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 12001;
+}
+
+.cmdk.active { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+
+.cmdk-container { display: flex; flex-direction: column; max-height: 70vh; }
+.cmdk-header { display: flex; align-items: center; gap: .75rem; padding: .75rem .9rem; border-bottom: 1px solid #f1f5f9; }
+.cmdk-header i { color: var(--medium-gray); }
+.cmdk-header input { flex: 1; border: 1px solid #e5e7eb; border-radius: 8px; padding: .6rem .8rem; font-size: .95rem; }
+.cmdk-close { background: transparent; border: none; color: var(--medium-gray); cursor: pointer; font-size: 1.1rem; }
+
+.cmdk-body { padding: .5rem; overflow: auto; }
+.cmdk-section-title { font-size: .8rem; color: var(--medium-gray); padding: .25rem .5rem; }
+.cmdk-list { list-style: none; }
+.cmdk-item { display: flex; align-items: center; gap: .6rem; padding: .6rem .6rem; border-radius: 8px; cursor: pointer; }
+.cmdk-item:hover, .cmdk-item.active { background: #f8fafc; }
+.cmdk-item i { color: var(--secondary-color); width: 20px; text-align: center; }
+.cmdk-item kbd { margin-left: auto; background: #e5e7eb; color: #334155; padding: 0 .4rem; border-radius: 6px; font-size: .7rem; }
+
+.cmdk-footer { padding: .6rem .9rem; border-top: 1px solid #f1f5f9; color: var(--medium-gray); font-size: .85rem; }
+
 /* Stronger, specific interaction for hero buttons to ensure visibility */
 .hero .hero-buttons .btn:hover,
 .hero .hero-buttons .btn:focus-visible {
@@ -232,81 +279,48 @@ p {
     box-shadow: var(--shadow);
 }
 
-/* Search Toggle Button */
-.search-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background-color: var(--light-gray);
-    color: var(--medium-gray);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.search-toggle:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
-    transform: scale(1.1);
-}
-
-/* Search Box */
 .search-box {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--white);
-    border-top: 1px solid var(--light-gray);
-    padding: 1rem 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: var(--transition);
-    z-index: 1000;
-    box-shadow: var(--shadow);
-}
-
-.search-box.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.search-input-wrapper {
     display: flex;
     align-items: center;
     background-color: var(--light-gray);
     border-radius: var(--border-radius);
     padding: 0.5rem;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
-.search-input-wrapper input {
-    border: none;
-    background: transparent;
-    padding: 0.75rem 1rem;
-    outline: none;
-    flex: 1;
-    font-size: 1rem;
-}
-
-.search-input-wrapper button {
-    border: none;
-    background: var(--primary-color);
-    color: var(--white);
-    padding: 0.75rem 1rem;
-    border-radius: var(--border-radius);
+/* Search trigger (mobile) */
+.search-trigger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    border: 1px solid #e5e7eb;
     cursor: pointer;
     transition: var(--transition);
 }
 
-.search-input-wrapper button:hover {
-    background: var(--secondary-color);
+.search-trigger:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    outline: none;
+    width: 200px;
+}
+
+.search-box button {
+    border: none;
+    background: transparent;
+    color: var(--medium-gray);
+    cursor: pointer;
+    padding: 0.5rem;
 }
 
 /* Navigation */
@@ -318,10 +332,8 @@ p {
 .nav-menu {
     display: flex;
     list-style: none;
-
-    align-items: stretch;
-    white-space: nowrap;
-
+    align-items: stretch; /* ensure all items occupy same height, avoids jitter */
+    white-space: nowrap; /* prevent wrapping that causes shifting */
 }
 
 .nav-menu li {
@@ -339,8 +351,7 @@ p {
     text-decoration: none;
     transition: var(--transition);
     font-weight: 500;
-    text-align: left;
-
+    text-align: left; /* lock left alignment */
 }
 
 .nav-link:hover,
@@ -387,29 +398,15 @@ p {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    padding: 0.5rem;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    transition: var(--transition);
-
+    padding: 1rem;
 }
 
 .mobile-menu-toggle span {
     width: 25px;
     height: 3px;
-    background-color: var(--primary-color);
+    background-color: var(--dark-gray); /* visible on white header */
     margin: 3px 0;
     transition: var(--transition);
-    border-radius: 2px;
-}
-
-.mobile-menu-toggle:hover {
-    background-color: rgba(30, 58, 138, 0.1);
-}
-
-.mobile-nav{
-    display: none;
 }
 
 /* Hero Section */
@@ -444,6 +441,22 @@ p {
     object-fit: cover;
 }
 
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Soft vignette/gradient so image still visible */
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.45) 0%,
+        rgba(0, 0, 0, 0.28) 35%,
+        rgba(0, 0, 0, 0.28) 65%,
+        rgba(0, 0, 0, 0.55) 100%
+    );
+    pointer-events: none;
+    z-index: 1; /* between image and content */
+}
+
 .hero-content {
     position: absolute;
     top: 0;
@@ -452,7 +465,23 @@ p {
     height: 100%;
     display: flex;
     align-items: center;
-    /* background: linear-gradient(rgba(215, 214, 221, 0.196), rgba(231, 243, 255, 0.453)); */
+    z-index: 2; /* above the overlay */
+}
+
+.hero-content .container {
+    display: inline-block;
+    max-width: min(820px, 92%);
+    padding: 24px 28px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.28);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.hero-content h2,
+.hero-content p {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .hero-content h2 {
@@ -482,6 +511,7 @@ p {
     display: flex;
     justify-content: space-between;
     padding: 0 2rem;
+    z-index: 3; /* above overlay */
 }
 
 .hero-prev,
@@ -510,6 +540,7 @@ p {
     transform: translateX(-50%);
     display: flex;
     gap: 0.5rem;
+    z-index: 3; /* above overlay */
 }
 
 .dot {
@@ -1460,13 +1491,6 @@ p {
         white-space: normal;  /* allow wrapping */
         word-break: break-word;
         overflow-wrap: anywhere;
-        line-height: 1.4;
-        hyphens: auto;                    /* nicer hyphenation when wrapping */
-        width: 100%;                      /* ensure no intrinsic expansion */
-        font-weight: 500;                 /* consistent weight to avoid reflow */
-        min-height: 44px;                 /* consistent tap target height */
-        text-align: left;
-
     }
     
     .navbar .nav-menu > li.dropdown > .dropdown-menu a:hover {
@@ -1505,7 +1529,6 @@ p {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-
     }
     
     .header-actions {
@@ -1525,118 +1548,94 @@ p {
     }
 }
 
-/* Mobile & Tablet responsive styles */
+/* Mobile & Tablet sidebar styles */
 @media (max-width: 1024px) {
     .container {
-        padding: 0 16px;
+        padding: 0 15px;
     }
     
-    /* Hide desktop navbar on mobile */
-    .navbar {
-        display: none;
-    }
-    
-    /* Hide desktop navigation on mobile */
-    .desktop-nav {
-        display: none;
-    }
-    
-    /* Show mobile menu toggle */
-    .mobile-menu-toggle {
-        display: flex;
-
-    }
-    
-    /* Add shadow between header and hero section on mobile */
-    .header {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-        z-index: 1001;
-    }
-    
-    /* Mobile Header Layout */
-    .header-content {
-        padding: 0.75rem 0;
-        gap: 1rem;
-    }
-    
-    .logo-section {
-        flex: 1;
-        min-width: 0;
-    }
-    
-    .logo-text h1 {
-        font-size: 1.1rem;
-        line-height: 1.2;
-        margin-bottom: 0.25rem;
-    }
-    
-    .logo-text p {
-        font-size: 0.8rem;
-        margin-bottom: 0;
+    .header-top {
+        flex-direction: row; /* keep single line */
+        gap: 0.5rem;
     }
     
     .header-actions {
-        gap: 0.75rem;
-        flex-shrink: 0;
+        width: auto;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
     }
     
     .quick-links {
         display: none;
     }
-    
 
-    .lang-toggle {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.85rem;
-        min-width: 44px;
-    }
-    
-    /* Mobile search box adjustments */
+    /* Hide full search box on mobile, show trigger */
     .search-box {
-        left: 16px;
-        right: 16px;
-        position: fixed;
-        top: 80px;
+        display: none;
+    }
+
+    .search-trigger {
+        display: inline-flex;
+    }
+
+    /* Compact logo and title for mobile single-line */
+    .logo { width: 44px; height: 44px; }
+    .logo-text h1 { font-size: 1.1rem; }
+    .logo-text p { display: none; }
+
+    .logo-section { gap: 0.6rem; flex: 1; min-width: 0; }
+    .logo-section .logo-text h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    
+    .language-switcher {
+        order: 1;
+    }
+    
+    /* Mobile Navigation Menu */
+    .navbar {
+        position: relative;
+    }
+    
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        position: relative;
         z-index: 10000;
+        order: 3;
+        margin-left: 4px;
     }
     
-    .search-input-wrapper {
-        max-width: none;
-    }
-    
-    /* Mobile Navigation Menu - UNPAD Style */
-    .mobile-nav {
-        display: block;
+    .nav-menu {
         position: fixed;
         top: 0;
         right: -100%;
         width: 340px; /* give more room for long labels */
         height: 100vh;
         background: var(--white);
+        flex-direction: column;
+        padding: 0 8px 0 0; /* reserve space for vertical scrollbar */
         box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
         transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         z-index: 9999;
-        overflow-y: auto;
+        overflow-y: scroll; /* always show scrollbar to prevent width jump */
+        scrollbar-gutter: stable; /* prevent horizontal shift when scrollbar appears */
         box-sizing: border-box;
     }
     
-    .mobile-nav.active {
+    .nav-menu.active {
         right: 0;
-    }
-    
-    .mobile-nav .nav-menu {
-        display: flex;
-        flex-direction: column;
-        list-style: none;
-        padding: 0;
-        margin: 0;
     }
     
     /* Mobile Menu Header */
     .mobile-menu-header {
         display: flex;
-
         align-items: center;
         gap: 1rem;
         padding: 2rem 1.5rem 1.5rem;
@@ -1807,12 +1806,11 @@ p {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.5);
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition: all 0.3s ease;
         z-index: 9998;
-        pointer-events: none;
     }
     
     .mobile-menu-overlay.active {
