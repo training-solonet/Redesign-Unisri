@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initLanguageSwitcher();
     initScrollProgressBar();
+    initCommandPalette();
 
     // Ensure desktop/mobile nav states do not clash when resizing
     setupResponsiveNavSync();
@@ -152,6 +153,132 @@ function setupResponsiveNavSync() {
 
     // Start auto slide
     startAutoSlide();
+}
+
+// Command Palette
+function initCommandPalette() {
+    const overlay = document.querySelector('.cmdk-overlay');
+    const panel = document.querySelector('.cmdk');
+    const input = document.getElementById('cmdk-input');
+    const closeBtn = document.querySelector('.cmdk-close');
+    const list = document.getElementById('cmdk-list');
+    const trigger = document.querySelector('.search-trigger');
+
+    if (!overlay || !panel || !input || !closeBtn || !list) return;
+
+    const items = [
+        { icon: 'fa-house', label: 'Beranda', action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+        { icon: 'fa-graduation-cap', label: 'Penerimaan Mahasiswa Baru', action: () => scrollToSection('.quick-info') },
+        { icon: 'fa-layer-group', label: 'Program Unggulan', action: () => scrollToSection('.programs') },
+        { icon: 'fa-newspaper', label: 'Berita & Pengumuman', action: () => scrollToSection('.news-section') },
+        { icon: 'fa-chart-column', label: 'Statistik UNISRI', action: () => scrollToSection('.stats-section') },
+        { icon: 'fa-video', label: 'Video Profil', action: () => scrollToSection('.video-section') },
+        { icon: 'fa-building', label: 'Fasilitas & Layanan', action: () => scrollToSection('.facilities') },
+        { icon: 'fa-language', label: 'Ganti Bahasa ke Indonesia', action: () => setLang('id') },
+        { icon: 'fa-language', label: 'Switch Language to English', action: () => setLang('en') },
+        { icon: 'fa-magnifying-glass', label: 'Cari di halaman (Ctrl+F)', action: () => { close(); setTimeout(() => document.activeElement.blur(), 0); } },
+    ];
+
+    function setLang(lang) {
+        const htmlEl = document.documentElement;
+        const currentSpan = document.querySelector('.current-lang');
+        const searchInput = document.querySelector('.search-box input');
+        htmlEl.setAttribute('lang', lang);
+        localStorage.setItem('site_lang', lang);
+        if (currentSpan) currentSpan.textContent = lang.toUpperCase();
+        if (searchInput) searchInput.setAttribute('placeholder', lang === 'en' ? 'Search...' : 'Cari...');
+    }
+
+    function scrollToSection(sel) {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+        const offset = headerHeight + navbarHeight;
+        const y = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        close();
+    }
+
+    function render(filtered) {
+        list.innerHTML = '';
+        (filtered || items).forEach((it, idx) => {
+            const li = document.createElement('li');
+            li.className = 'cmdk-item';
+            li.setAttribute('role', 'option');
+            li.dataset.index = String(idx);
+            li.innerHTML = `<i class="fas ${it.icon}"></i><span>${it.label}</span>`;
+            li.addEventListener('click', () => {
+                it.action();
+                close();
+            });
+            list.appendChild(li);
+        });
+        activeIndex = list.children.length ? 0 : -1;
+        highlight();
+    }
+
+    function open() {
+        overlay.classList.add('active');
+        panel.classList.add('active');
+        panel.setAttribute('aria-hidden', 'false');
+        setTimeout(() => input.focus(), 10);
+        input.select();
+        render();
+    }
+
+    function close() {
+        overlay.classList.remove('active');
+        panel.classList.remove('active');
+        panel.setAttribute('aria-hidden', 'true');
+        input.value = '';
+    }
+
+    let activeIndex = -1;
+    function highlight() {
+        Array.from(list.children).forEach((el, i) => {
+            el.classList.toggle('active', i === activeIndex);
+        });
+    }
+
+    function filter(query) {
+        const q = query.trim().toLowerCase();
+        if (!q) { render(items); return; }
+        const filtered = items.filter(it => it.label.toLowerCase().includes(q));
+        render(filtered);
+    }
+
+    // Event wiring
+    if (trigger) trigger.addEventListener('click', open);
+    overlay.addEventListener('click', close);
+    closeBtn.addEventListener('click', close);
+    input.addEventListener('input', (e) => filter(e.target.value));
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        const isCtrlK = (e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'k');
+        if (isCtrlK) {
+            e.preventDefault();
+            if (panel.classList.contains('active')) close(); else open();
+            return;
+        }
+
+        if (!panel.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            close();
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (list.children.length) { activeIndex = (activeIndex + 1) % list.children.length; highlight(); }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (list.children.length) { activeIndex = (activeIndex - 1 + list.children.length) % list.children.length; highlight(); }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (activeIndex >= 0) { list.children[activeIndex].click(); }
+        }
+    });
 }
 
 // Language Switcher
