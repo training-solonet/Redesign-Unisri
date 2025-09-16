@@ -20,5 +20,7 @@ jobs:
           script: |
             set -e
             cd /var/www/Redesign-Unisri
+            git fetch --all
+            git reset --hard origin/main
             git pull origin main
             echo "✅ Completed."
